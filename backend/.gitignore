@@ -1,0 +1,71 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-error.log
+pnpm-debug.log
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Database
+*.sqlite
+*.sqlite3
+*.db
+*.pdb
+*.db-journal
+
+# Debugging
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+
+# Binaries
+dist/
+build/
+out/
+
+# Coverage and testing
+coverage/
+*.lcov
+.nyc_output
+jest/
+__tests__/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.pid
+*.seed
+*.orig
+
+# Docker
+docker-compose.override.yml
+.dockerignore
+
+# IDE & OS
+.DS_Store
+Thumbs.db
+
+# PM2 logs
+pm2.log
+pm2.pid
+
+# TypeScript
+*.tsbuildinfo
