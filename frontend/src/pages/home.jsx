@@ -1,21 +1,25 @@
-import React from "react";
 import Stack from "react-bootstrap/Stack";
 import { Container, Row, Col } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 // import component
 import GameCard from "../components/GameCard";
 
-const data = [
-  {
-    name: "Oxford 3000 words",
-    content:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley",
-    img: "public/test.png"
-  },
-  
-];
-
 function Home() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/api/challenge")
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+
   return (
     <Container className="p-4">
       <Row>
