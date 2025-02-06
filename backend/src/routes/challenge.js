@@ -1,9 +1,9 @@
 const express = require('express');
+const { Challenge, Vocab } = require("../models/challenge");
+const { getAllChallenges } = require("../controllers/challenge")
 
 const router = express.Router();
 
-router.get('/', (req, res) => {  
-    res.send("hello from challenge.");
-});
+router.get('/', getAllChallenges);
 
 module.exports = router;
