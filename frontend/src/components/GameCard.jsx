@@ -10,7 +10,7 @@ function GameCard({ name, content, img, challengeID }) {
       <Card.Body>
         <Card.Img
           variant="top"
-          src={img}
+          src={`${import.meta.env.VITE_API_URL}/uploads/${img}`}
           className="w-25 h-25 d-block mx-auto"
         />
         <Card.Title>{name}</Card.Title>
