@@ -1,6 +1,5 @@
 const { Challenge, Vocab } = require("../models/challenge");
 
-
 // @desc    Fetch all challenge
 // @route   GET /api/challenge
 // @access  Public
