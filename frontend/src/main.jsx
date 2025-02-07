@@ -8,6 +8,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 // import pages
 import Home from "./pages/home";
 import About from "./pages/about";
+import { Play } from "./pages/play";
 
 // import components
 import { NavCustom } from "./components/NavCustom";
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
   {
     path: "/about",
     element: <About />,
+  },
+  {
+    path: "/play/:challengeId",
+    element: <Play />,
   },
 ]);
 

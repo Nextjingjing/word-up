@@ -26,8 +26,8 @@ function Home() {
       <Row>
         {data.map((item, index) => (
           <Col key={index} md={4} className="mb-3">
-            <GameCard name={item.name} content={item.content} img={item.img} />
-          </Col>
+            <GameCard name={item.name} content={item.content} img={item.img} challengeID={item._id}/>
+          </Col>  
         ))}
       </Row>
     </Container>
