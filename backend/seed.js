@@ -24,17 +24,17 @@ const seed = async() => {
             {
                 name: "Oxford 3000 words",
                 content: "Learning a new language requires building a strong foundation of vocabulary. This collection includes the most important words that every English learner should know. These words are commonly used in daily conversations, writing, and professional communication.",
-                img: "public/images/oxford3000.png"
+                img: "images/oxford3000.jpg"
             },
             {
                 name: "Common Phrases",
                 content: "Communicating effectively in English requires more than just knowing individual words—it’s about understanding and using common phrases that people use in everyday conversations. This collection includes key phrases that will help learners navigate daily interactions, whether they are greeting someone, asking for help, ordering food, making small talk, or expressing opinions.",
-                img: "public/images/common_phrases.png"
+                img: "images/common_phrases.jpg"
             },
             {
                 name: "Business English",
                 content: "This collection includes key phrases that will help learners navigate daily interactions, whether they are greeting someone, asking for help, ordering food, making small talk, or expressing opinions. These phrases are widely used in both casual and formal situations, making them essential for anyone who wants to speak English naturally and confidently.",
-                img: "public/images/business_english.png"
+                img: "images/business_english.jpg"
             }
           ];
           
