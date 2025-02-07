@@ -1,9 +1,10 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { VocabCard } from "../components/VocabCard";
 import Container from "react-bootstrap/Container";
+import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import { VocabCard } from "../components/VocabCard";
 
 export const Play = () => {
   const { challengeId } = useParams();
@@ -24,22 +25,32 @@ export const Play = () => {
   return (
     <Container
       fluid
-      className="d-flex flex-column align-items-center min-vh-100"
+      className="d-flex flex-column align-items-center min-vh-100 bg-light p-4"
     >
-      <VocabCard
-        english={data[indexVocab]?.english || ""}
-        thai={data[indexVocab]?.thai || ""}
-      />
+      <Card
+        style={{ maxWidth: "500px", width: "100%" }}
+        className="shadow p-3 mb-4 bg-white rounded text-center"
+      >
+        <Card.Body>
+          <Card.Title className="mb-3">
+            คำศัพท์ข้อที่ {indexVocab + 1} / {data.length}
+          </Card.Title>
+          <VocabCard
+            english={data[indexVocab]?.english || ""}
+            thai={data[indexVocab]?.thai || ""}
+          />
+        </Card.Body>
+      </Card>
 
-      <div className="d-flex justify-content-center mt-4">
+      <div className="d-flex gap-2 align-items-center">
         <Button
           variant="secondary"
-          className="me-2"
           onClick={() => setIndexVocab((prev) => prev - 1)}
           disabled={indexVocab === 0}
         >
           Previous
         </Button>
+
         <Button
           variant="success"
           onClick={() => setIndexVocab((prev) => prev + 1)}
