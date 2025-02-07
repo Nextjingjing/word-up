@@ -7,11 +7,12 @@ import axios from "axios";
 import GameCard from "../components/GameCard";
 
 function Home() {
+
   const [data, setData] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/challenge")
+      .get(`${import.meta.env.VITE_API_URL}/api/challenge`)
       .then((response) => {
         setData(response.data);
       })

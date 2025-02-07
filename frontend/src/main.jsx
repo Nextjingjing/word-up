@@ -7,7 +7,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 // import pages
 import Home from "./pages/home";
-import Home2 from "./pages/home2";
+import About from "./pages/about";
 
 // import components
 import { NavCustom } from "./components/NavCustom";
@@ -19,8 +19,8 @@ const router = createBrowserRouter([
     element: <Home />,
   },
   {
-    path: "/home2",
-    element: <Home2 />,
+    path: "/about",
+    element: <About />,
   },
 ]);
 
