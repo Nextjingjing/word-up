@@ -1,7 +1,7 @@
 const { Challenge, Vocab } = require("../models/challenge");
 
 
-// @desc    Fetch all Challenge
+// @desc    Fetch all challenge
 // @route   GET /api/challenge
 // @access  Public
 const getAllChallenges = async (req, res) => {
@@ -14,4 +14,18 @@ const getAllChallenges = async (req, res) => {
     }
 };
 
-module.exports = { getAllChallenges };
+// @desc    Fetch all vocab
+// @route   GET /api/challenge/:challengeId
+// @access  Public
+const getVocabChallenge = async (req, res) => {
+    try{
+        const { challengeId } = req.params;
+        const query = await Vocab.find({ 'challenge': `${challengeId}` });
+        res.json(query);
+    }catch(err){
+        console.log("ERROR!!!", err)
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+}
+
+module.exports = { getAllChallenges, getVocabChallenge };
