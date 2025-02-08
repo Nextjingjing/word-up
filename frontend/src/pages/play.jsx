@@ -25,7 +25,8 @@ export const Play = () => {
   return (
     <Container
       fluid
-      className="d-flex flex-column align-items-center min-vh-100 bg-light p-4"
+      className="d-flex flex-column align-items-center"
+      style={{ height: "50vh", marginTop: "4rem" }}
     >
       <Card
         style={{ maxWidth: "500px", width: "100%" }}
