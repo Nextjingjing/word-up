@@ -4,6 +4,7 @@ const initialState = {
   id: "",
   username: "",
   email: "",
+  isAdmin: false
 };
 
 const userSlice = createSlice({
@@ -14,11 +15,13 @@ const userSlice = createSlice({
       state.id = action.payload.id;
       state.username = action.payload.username;
       state.email = action.payload.email;
+      state.isAdmin = action.payload.isAdmin;
     },
     clearUser: (state) => {
       state.id = "";
       state.username = "";
       state.email = "";
+      state.isAdmin = false;
     },
   },
 });

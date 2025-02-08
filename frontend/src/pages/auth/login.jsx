@@ -32,7 +32,13 @@ export const Login = () => {
         }
       );
 
-      dispatch(setUser({ id: response.data.user.id, username: response.data.user.username, email: response.data.user.email }))
+      dispatch(setUser({ 
+        id: response.data.user.id, 
+        username: response.data.user.username, 
+        email: response.data.user.email,
+        isAdmin: response.data.user.isAdmin,
+      }))
+
       navigate("/");
     } catch (error) {
       console.error("Login Failed:", error.response?.data || error.message);

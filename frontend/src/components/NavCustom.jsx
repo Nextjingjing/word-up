@@ -8,6 +8,7 @@ import logo from "../assets/logo/logo.svg";
 
 export const NavCustom = () => {
   const user = useSelector((state) => state.user);
+  console.log(user)
   const dispatch = useDispatch();
 
   const handleLogout = async () => {
