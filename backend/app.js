@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const dotenv = require("dotenv");
 const cors = require("cors");
 const path = require("path");
-const { authenticateJWT } = require('./src/middlewares/user')
+const { authenticateJWT, adminAuthenticateJWT } = require('./src/middlewares/user')
 const errorHandler = require("./src/middlewares/errorHandler");
 const cookieParser = require("cookie-parser");
 
@@ -45,6 +45,10 @@ app.use('/api/user', userRouter);
 
 app.get('/test/protect', authenticateJWT, (req,res) =>{
   res.send("testing pass")
+});
+
+app.get('/test/admin', adminAuthenticateJWT, (req, res) => {
+  res.send("You are admin!")
 });
 
 app.use(errorHandler);

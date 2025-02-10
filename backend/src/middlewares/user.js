@@ -20,4 +20,26 @@ const authenticateJWT = (req, res, next) => {
     }
 };
 
-module.exports = { authenticateJWT };
+const adminAuthenticateJWT = (req, res, next) => {
+    const token = req.cookies?.token;
+
+    if (!token) {
+        return res.status(401).json({ message: "Unauthorized: No token provided" });
+    }
+
+    try {
+        const decoded = jwt.verify(token, SECRET_KEY);
+        req.user = decoded;
+
+        if (decoded.isAdmin) {
+            next();
+        } else {
+            return res.status(403).json({ message: "Forbidden: You are not an admin" });
+        }
+    } catch (err) {
+        return res.status(403).json({ message: "Forbidden: Invalid token" });
+    }
+};
+
+
+module.exports = { authenticateJWT, adminAuthenticateJWT };
