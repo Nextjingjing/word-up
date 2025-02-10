@@ -10,7 +10,8 @@ const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get(`${API_URL}/api/challenge`)
+    axios
+      .get(`${API_URL}/api/challenge`)
       .then((response) => {
         setChallenges(response.data);
         setLoading(false);
@@ -22,7 +23,9 @@ const AdminDashboard = () => {
     <Container>
       <h2 className="my-4">Admin Dashboard</h2>
       <Link to="/admin/upload">
-        <Button variant="primary" className="mb-3">+ Upload Challenge</Button>
+        <Button variant="primary" className="mb-3">
+          + Upload Challenge
+        </Button>
       </Link>
 
       {loading ? (
@@ -43,10 +46,15 @@ const AdminDashboard = () => {
                 <td>{challenge.name}</td>
                 <td>
                   <Link to={`/admin/edit/${challenge._id}`}>
-                    <Button variant="warning" className="me-2">Edit</Button>
+                    <Button variant="warning" className="me-2">
+                      Edit
+                    </Button>
                   </Link>
                   <Link to={`/admin/delete/${challenge._id}`}>
                     <Button variant="danger">Delete</Button>
+                  </Link>
+                  <Link to={`/admin/add-vocab/${challenge._id}`}>
+                    <Button variant="success">Add Vocab</Button>
                   </Link>
                 </td>
               </tr>

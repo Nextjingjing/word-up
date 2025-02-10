@@ -16,6 +16,7 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import UploadChallenge from "./pages/admin/UploadChallenge";
 import EditChallenge from "./pages/admin/EditChallenge";
 import DeleteChallenge from "./pages/admin/DeleteChallenge";
+import AddVocab from "./pages/admin/AddVocab";
 
 import App, { AdminProtectedRoute } from "./app";
 
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: "/admin/delete/:id",
         element: <AdminProtectedRoute><DeleteChallenge /></AdminProtectedRoute>,
+      },
+      {
+        path: "/admin/add-vocab/:id",
+        element: <AdminProtectedRoute><AddVocab /></AdminProtectedRoute>,
       },
     ],
   },
