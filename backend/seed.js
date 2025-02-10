@@ -24,7 +24,7 @@ const seed = async() => {
             {
                 name: "Oxford 3000 words",
                 content: "Learning a new language requires building a strong foundation of vocabulary. This collection includes the most important words that every English learner should know. These words are commonly used in daily conversations, writing, and professional communication.",
-                img: "images/oxford3000.jpg"
+                img: "images/oxford_3000.jpg"
             },
             {
                 name: "Common Phrases",

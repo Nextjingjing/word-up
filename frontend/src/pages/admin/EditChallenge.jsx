@@ -13,15 +13,25 @@ const EditChallenge = () => {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // Fetch Challenge Data
   useEffect(() => {
-    axios.get(`${API_URL}/api/challenge/${id}`, { withCredentials: true })
+    axios.get(`${API_URL}/api/challenge`, { withCredentials: true })
       .then(response => {
-        setName(response.data.name);
-        setContent(response.data.content);
+        // ✅ Find the challenge that matches the `id`
+        const foundChallenge = response.data.find(challenge => challenge._id === id);
+  
+        if (foundChallenge) {
+          setName(foundChallenge.name);
+          setContent(foundChallenge.content);
+        } else {
+          console.error("❌ Challenge not found");
+        }
       })
-      .catch(error => console.error("Error fetching challenge:", error));
+      .catch(error => console.error("❌ Error fetching challenge:", error));
   }, [id]);
+  
 
+  // Handle Update Submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -32,9 +42,12 @@ const EditChallenge = () => {
       });
 
       setMessage("✅ Challenge updated successfully!");
-      setTimeout(() => navigate("/admin"), 1500);
+
+      // ✅ Redirect to /admin instantly
+      navigate("/admin");
+      
     } catch (error) {
-      console.error("Error updating challenge:", error);
+      console.error("❌ Error updating challenge:", error);
       setMessage("❌ Update failed.");
     } finally {
       setLoading(false);
