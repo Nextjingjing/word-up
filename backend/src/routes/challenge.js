@@ -16,14 +16,9 @@ router.get("/", getAllChallenges);
 
 router.get("/:challengeId", getVocabChallenge);
 
-router.post(
-  "/upload",
-  adminAuthenticateJWT,
-  imageUpload.single("file"),
-  uploadChallenge
-);
+router.post("/upload", adminAuthenticateJWT, imageUpload.single("file"), uploadChallenge);
 
-router.patch("/:challengeId", adminAuthenticateJWT, patchChallenge);
+router.patch("/:challengeId", adminAuthenticateJWT, imageUpload.single("file"), patchChallenge);
 
 router.delete("/:challengeId", adminAuthenticateJWT, deleteChallenge);
 

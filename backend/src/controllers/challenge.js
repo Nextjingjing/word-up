@@ -1,6 +1,7 @@
 const { Challenge, Vocab } = require("../models/challenge");
-const fs = require("fs");
+const deleteFile = require("../utils/deleteFile");
 const path = require("path");
+
 
 // @desc    Fetch all challenge
 // @route   GET /api/challenge
@@ -59,22 +60,42 @@ const uploadChallenge = async (req, res) => {
 // @access  Admin
 const patchChallenge = async (req, res) => {
   try {
-    const updatedChallenge = await Challenge.findByIdAndUpdate(
-      req.params.challengeId,
-      { $set: req.body },
-      { new: true, runValidators: true }
-    );
+    const { name, content } = req.body;
+    let updatedFields = { name, content };
 
-    if (!updatedChallenge) {
+    const challenge = await Challenge.findById(req.params.challengeId);
+    if (!challenge) {
       return res.status(404).json({ message: "Challenge not found" });
     }
 
-    res.json(updatedChallenge);
+    if (req.file) {
+      const newImg = `images/${req.file.filename}`;
+      updatedFields.img = newImg;
+
+      if (challenge.img) {
+        const oldImagePath = path.join(__dirname, "..", "..", "uploads", challenge.img);
+        try {
+          await deleteFile(oldImagePath);
+        } catch (err) {
+          console.error("Error deleting old image:", err);
+        }
+      }
+    }
+
+    const updatedChallenge = await Challenge.findByIdAndUpdate(
+      req.params.challengeId,
+      { $set: updatedFields },
+      { new: true, runValidators: true }
+    );
+
+    res.json({ message: "Challenge updated successfully", updatedChallenge });
+
   } catch (error) {
     console.error("Error updating challenge:", error);
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+
 
 const deleteChallenge = async (req, res) => {
   try {
@@ -85,22 +106,20 @@ const deleteChallenge = async (req, res) => {
     }
 
     if (deletedChallenge.img) {
-      // Resolve the absolute path correctly
+      // ✅ Construct absolute path
       const imagePath = path.join(__dirname, "..", "..", "uploads", deletedChallenge.img);
 
-      fs.unlink(imagePath, (err) => {
-        if (err) {
-          console.error("Error deleting image file:", err);
-        } else {
-          console.log(`Image deleted: ${deletedChallenge.img}`);
-        }
-      });
+      try {
+        await deleteFile(imagePath); // ✅ Use utility function
+      } catch (err) {
+        console.error("❌ Error deleting challenge image:", err);
+      }
     }
 
-    res.json({ message: "Challenge deleted successfully" });
+    res.json({ message: "✅ Challenge deleted successfully" });
 
   } catch (error) {
-    console.error("Error deleting challenge:", error);
+    console.error("❌ Error deleting challenge:", error);
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
