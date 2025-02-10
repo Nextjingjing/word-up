@@ -8,18 +8,17 @@ import logo from "../assets/logo/logo.svg";
 
 export const NavCustom = () => {
   const user = useSelector((state) => state.user);
-  console.log(user)
   const dispatch = useDispatch();
 
   const handleLogout = async () => {
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/api/user/logout`, {
         method: "POST",
-        credentials: "include", // Ensure cookies are sent
+        credentials: "include",
       });
 
       if (response.ok) {
-        dispatch(clearUser()); // Clear user state
+        dispatch(clearUser());
       } else {
         console.error("Logout failed");
       }
@@ -52,6 +51,11 @@ export const NavCustom = () => {
             {user.id ? (
               <>
                 <h2 className="text-light me-3">👋 {user.username}</h2>
+                {user.isAdmin && (
+                  <Nav.Link href="/admin">
+                    <Button variant="warning" className="me-2">Admin</Button>
+                  </Nav.Link>
+                )}
                 <Button variant="danger" onClick={handleLogout}>
                   Logout
                 </Button>

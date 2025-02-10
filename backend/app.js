@@ -6,6 +6,7 @@ const path = require("path");
 const { authenticateJWT, adminAuthenticateJWT } = require('./src/middlewares/user')
 const errorHandler = require("./src/middlewares/errorHandler");
 const cookieParser = require("cookie-parser");
+const connectDB = require("./src/config/db");
 
 dotenv.config();
 
@@ -19,10 +20,7 @@ const app = express()
 const port = process.env.PORT;
 
 // MongoDB Connection
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB Connected"))
-  .catch((err) => console.log(err));
+connectDB();
 
 
 // Middleware

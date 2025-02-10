@@ -69,3 +69,6 @@ pm2.pid
 
 # TypeScript
 *.tsbuildinfo
+
+# Upload
+uploads/images/*
