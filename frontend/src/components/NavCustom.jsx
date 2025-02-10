@@ -5,10 +5,12 @@ import Button from "react-bootstrap/Button";
 import { useSelector, useDispatch } from "react-redux";
 import { clearUser } from "../features/userSlice";
 import logo from "../assets/logo/logo.svg";
+import { useNavigate } from "react-router-dom";
 
 export const NavCustom = () => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
@@ -19,6 +21,7 @@ export const NavCustom = () => {
 
       if (response.ok) {
         dispatch(clearUser());
+        navigate("/");
       } else {
         console.error("Logout failed");
       }

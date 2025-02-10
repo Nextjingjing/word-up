@@ -1,4 +1,6 @@
 const { Challenge, Vocab } = require("../models/challenge");
+const fs = require("fs");
+const path = require("path");
 
 // @desc    Fetch all challenge
 // @route   GET /api/challenge
@@ -80,6 +82,19 @@ const deleteChallenge = async (req, res) => {
 
     if (!deletedChallenge) {
       return res.status(404).json({ message: "Challenge not found" });
+    }
+
+    if (deletedChallenge.img) {
+      // Resolve the absolute path correctly
+      const imagePath = path.join(__dirname, "..", "..", "uploads", deletedChallenge.img);
+
+      fs.unlink(imagePath, (err) => {
+        if (err) {
+          console.error("Error deleting image file:", err);
+        } else {
+          console.log(`Image deleted: ${deletedChallenge.img}`);
+        }
+      });
     }
 
     res.json({ message: "Challenge deleted successfully" });
