@@ -13,6 +13,7 @@ import About from "./pages/about";
 import { Play } from "./pages/play";
 import { Login } from "./pages/auth/login";
 import { Register } from "./pages/auth/register";
+import UploadChallenge from "./pages/UploadChallenge";
 
 // import components
 import { NavCustom } from "./components/NavCustom";
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/admin",
+    element: <UploadChallenge />,
   },
 ]);
 

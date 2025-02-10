@@ -32,9 +32,16 @@ const uploadChallenge = async (req, res) => {
       if (!req.file) {
         return res.status(400).json({ message: "No file uploaded" });
       }
-    
+
+      const { name, content } = req.body;
+      const img = `images/${req.file.filename}`
+      console.log(req.file.filename)
+      const newChallenge = new Challenge({ name, content, img});
+      await newChallenge.save();
+
       res.status(200).json({ 
         message: "File uploaded successfully",
+        challenge: newChallenge
       });
   
     } catch (error) {
