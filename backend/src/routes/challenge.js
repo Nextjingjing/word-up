@@ -4,7 +4,8 @@ const {
   getVocabChallenge,
   uploadChallenge,
   patchChallenge,
-  deleteChallenge
+  deleteChallenge,
+  addVocab,
 } = require("../controllers/challenge");
 const { adminAuthenticateJWT } = require("../middlewares/user");
 const { imageUpload } = require("../middlewares/upload");
@@ -21,5 +22,7 @@ router.post("/upload", adminAuthenticateJWT, imageUpload.single("file"), uploadC
 router.patch("/:challengeId", adminAuthenticateJWT, imageUpload.single("file"), patchChallenge);
 
 router.delete("/:challengeId", adminAuthenticateJWT, deleteChallenge);
+
+router.post('/vocab/:challengeId', adminAuthenticateJWT, addVocab)
 
 module.exports = router;

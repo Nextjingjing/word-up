@@ -96,7 +96,9 @@ const patchChallenge = async (req, res) => {
   }
 };
 
-
+// @desc    Delete challenge by id
+// @route   Delete /api/challenge/:challengeID
+// @access  Admin
 const deleteChallenge = async (req, res) => {
   try {
     const deletedChallenge = await Challenge.findByIdAndDelete(req.params.challengeId);
@@ -124,4 +126,35 @@ const deleteChallenge = async (req, res) => {
   }
 };
 
-module.exports = { getAllChallenges, getVocabChallenge, uploadChallenge, patchChallenge, deleteChallenge };
+// @desc    add vocab for challenge by id
+// @route   Delete /api/challenge/:challengeID
+// @access  Admin
+const addVocab = async (req, res) => {
+  try{
+    const challengeId = req.params.challengeId
+    const {english, thai} = req.body
+    if(!challengeId){
+      return(res.status(400).json({massage: "There is no challenge id param or Invalid body request"}))
+  };
+    const selectedChallenge = await Challenge.findById(challengeId);
+    if(!selectedChallenge){
+      return(res.status(404).json({massage: "No Challenge for this id"}))
+    }
+    const newVocab = new Vocab({english: english, thai: thai, challenge: selectedChallenge._id});
+    await newVocab.save();
+    res.status(201).json({ message: "Vocab added successfully", vocab: newVocab });
+
+  }catch(err){
+    console.log("Error! ",err)
+    res.status(500).json({ message: "Internal Server Error", error: err.message });
+  };
+
+};
+
+module.exports = { getAllChallenges, 
+  getVocabChallenge, 
+  uploadChallenge, 
+  patchChallenge, 
+  deleteChallenge,
+  addVocab
+ };

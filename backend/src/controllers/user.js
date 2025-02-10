@@ -1,6 +1,9 @@
 const { User } = require("../models/user");
 const generateToken = require("../utils/generateToken");
 
+// @desc    Login
+// @route   POST /api/user/login
+// @access  Public
 const userLogin = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -40,6 +43,9 @@ const userLogin = async (req, res) => {
     }
 };
 
+// @desc    Register
+// @route   POST /api/user/register
+// @access  Public
 const userRegister = async (req, res) => {
     try {
         const { username, email, password } = req.body;
@@ -76,6 +82,9 @@ const userRegister = async (req, res) => {
     }
 };
 
+// @desc    Logout
+// @route   POST /api/user/logout
+// @access  Public
 const userLogout = (req, res) => {
     res.clearCookie("token", {
         httpOnly: true,
