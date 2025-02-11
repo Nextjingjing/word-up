@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from "../features/userSlice";
+import userReducer, { checkExpiration } from "../features/userSlice";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
@@ -24,3 +24,8 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
+
+// ตรวจสอบ expiration ทุกครั้งที่ Redux Persist โหลด state
+persistor.subscribe(() => {
+  store.dispatch(checkExpiration());
+});
