@@ -56,7 +56,7 @@ const uploadChallenge = async (req, res) => {
 };
 
 // @desc    Patch challenge by id
-// @route   PATCH /api/challenge/:challengeID
+// @route   PATCH /api/challenge/:challengeId
 // @access  Admin
 const patchChallenge = async (req, res) => {
   try {
@@ -97,7 +97,7 @@ const patchChallenge = async (req, res) => {
 };
 
 // @desc    Delete challenge by id
-// @route   Delete /api/challenge/:challengeID
+// @route   Delete /api/challenge/:challengeId
 // @access  Admin
 const deleteChallenge = async (req, res) => {
   try {
@@ -117,6 +117,8 @@ const deleteChallenge = async (req, res) => {
         console.error("❌ Error deleting challenge image:", err);
       }
     }
+    
+    await Vocab.deleteMany({ challenge: req.params.challengeId });
 
     res.json({ message: "✅ Challenge deleted successfully" });
 
@@ -127,7 +129,7 @@ const deleteChallenge = async (req, res) => {
 };
 
 // @desc    add vocab for challenge by id
-// @route   Delete /api/challenge/:challengeID
+// @route   POST /api/challenge/vocab/:challengeId
 // @access  Admin
 const addVocab = async (req, res) => {
   try{
@@ -151,10 +153,32 @@ const addVocab = async (req, res) => {
 
 };
 
+// @desc    delete vocab for challenge by id
+// @route   Delete /api/challenge/vocab/:vocabId
+// @access  Admin
+const deleteVocab = async (req, res) => {
+  try{
+    const id = req.params.vocabId
+  if(!id){
+    return (res.status(400).json({message: "No param"}));
+  };
+  const vocab = await Vocab.findById(id);
+  if(!vocab){
+    return (res.status(404).json({message: "not found vocab"}));
+  };
+  await vocab.deleteOne();
+  return (res.status(200).json({message: "delete vocab success"}));
+  }catch(err){
+    res.status(500).json({massage: "server is error"});
+    console.log(err)
+  }""
+};
+
 module.exports = { getAllChallenges, 
   getVocabChallenge, 
   uploadChallenge, 
   patchChallenge, 
   deleteChallenge,
-  addVocab
+  addVocab,
+  deleteVocab
  };
