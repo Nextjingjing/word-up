@@ -3,7 +3,7 @@ const Success = require("../models/success");
 const addChallengeUser = async (req, res) => {
     try {
         const challengeId = req.params.challengeId;
-        const userId = req.user._id;
+        const userId = req.user.id;
 
         let existingSuccess = await Success.findOne({ userId });
 
@@ -29,7 +29,7 @@ const addChallengeUser = async (req, res) => {
 
 const listChallengeUser = async (req, res) => {
     try {
-        const userId = req.user._id;
+        const userId = req.user.id;
 
         const successRecords = await Success.find({ userId })
         if (!successRecords || successRecords.length === 0) {

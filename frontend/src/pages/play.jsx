@@ -10,6 +10,7 @@ export const Play = () => {
   const { challengeId } = useParams();
   const [data, setData] = useState([]);
   const [indexVocab, setIndexVocab] = useState(0);
+  const [hasCompleted, setHasCompleted] = useState(false); // ✅ เพิ่ม state เพื่อป้องกันยิง POST ซ้ำ
 
   useEffect(() => {
     axios
@@ -21,6 +22,27 @@ export const Play = () => {
         console.error("Error fetching data:", error);
       });
   }, [challengeId]);
+
+  useEffect(() => {
+    // ✅ เช็คว่าเล่นครบทุกคำศัพท์หรือยัง
+    if (data.length > 0 && indexVocab === data.length - 1 && !hasCompleted) {
+      const markChallengeAsCompleted = async () => {
+        try {
+          await axios.post(
+            `${import.meta.env.VITE_API_URL}/api/success/${challengeId}`,
+            {},
+            { withCredentials: true }
+          );
+          console.log("Challenge marked as completed!");
+          setHasCompleted(true); // ✅ ป้องกันยิง POST ซ้ำ
+        } catch (error) {
+          console.error("Error marking challenge as completed:", error);
+        }
+      };
+
+      markChallengeAsCompleted();
+    }
+  }, [indexVocab, data.length, challengeId, hasCompleted]);
 
   return (
     <Container
