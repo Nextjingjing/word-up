@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken');
 // import controllers
 const { userLogin, userRegister, userLogout } = require("../controllers/user")
 
-// SECRET KEY
 const router = express.Router();
 
 router.post('/login', userLogin);

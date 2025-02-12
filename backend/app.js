@@ -13,6 +13,7 @@ dotenv.config();
 // Import router
 const challengeRouter = require('./src/routes/challenge')
 const userRouter = require('./src/routes/user')
+const successRouter = require('./src/routes/success')
 
 const app = express()
 
@@ -40,13 +41,7 @@ app.use('/api/challenge', challengeRouter);
 
 app.use('/api/user', userRouter);
 
-app.get('/test/protect', authenticateJWT, (req,res) =>{
-  res.send("testing pass")
-});
-
-app.get('/test/admin', adminAuthenticateJWT, (req, res) => {
-  res.send("You are admin!")
-});
+app.use('/api/success', successRouter);
 
 app.use(errorHandler);
 
